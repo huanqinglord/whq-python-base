@@ -40,3 +40,19 @@ if __name__ == "__main__":
     #python2中布尔类型0代表False，1代表True，python3中用False和True表示，但实际还是Number类型
     print(True + 1) # 输出结果为2
     print(False + 1) # 输出结果为1
+
+    delvar = "del语句会删除对象引用"
+    print(delvar)
+
+    del delvar
+    # 执行如下语句会提示：NameError: name 'delvar' is not defined
+    #print(delvar)
+
+    '''
+    Number数值运算
+    '''
+    print(3 / 2) #得到一个浮点数
+    print(3 // 2) #得到一个整数
+    print(5 // 3) #得到一个整数，且整数只舍去小数点后面，不会四舍五入
+    print(5 % 3) #取余
+    print(2**4) #乘方
