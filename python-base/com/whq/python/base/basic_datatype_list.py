@@ -62,3 +62,6 @@ if __name__ == "__main__":
     #以下还不知道join函数的作用
     print(" ".join(str1List[::-1]))
 
+    print("单个元素的列表声明")
+    list2 = [1]
+    print(list2)
