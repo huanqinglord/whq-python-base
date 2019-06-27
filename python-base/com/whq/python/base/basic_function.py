@@ -116,6 +116,113 @@ if __name__ == "__main__":
     print(testDefault(1))
 
     print("第七个函数：不定长参数")
+    def testNoKnowValue(a, *vartuple):
+        "打印所有参数"
+        print(a)
+        print(vartuple)
+        return
+    testNoKnowValue("a", 1, 2)
 
+    def testSecondNoKnowValue(a, **vardict):
+        "多参数字典类型传入"
+        print(a)
+        print(vardict)
+        return
+    #如下调用报错
+    #TypeError: testSecondNoKnowValue() takes 1 positional argument but 3 were given
+    #testSecondNoKnowValue("a", 1, 2)
+    testSecondNoKnowValue("a", c=2, b=3)
 
-    print("第八个函数：关键字参数")
+    #声明函数时，参数中星号 * 可以单独出现
+    #如果单独出现星号 * 后的参数必须用关键字传入
+    print("第八个函数：*后参数必须关键字传入")
+    def testMustKeyWords(a, b, *, c):
+        print(a, b, c)
+    #TypeError: testMustKeyWords() takes 2 positional arguments but 3 were given
+    #testMustKeyWords(1, 2, 3)
+    testMustKeyWords(1, 2, c = 3)
+
+    ####################################################################
+    '''
+    匿名函数：
+        python 使用 lambda 来创建匿名函数。
+        所谓匿名，意即不再使用 def 语句这样标准的形式定义一个函数。
+        lambda 只是一个表达式，函数体比 def 简单很多。
+        lambda的主体是一个表达式，而不是一个代码块。仅仅能在lambda表达式中封装有限的逻辑进去。
+        lambda 函数拥有自己的命名空间，且不能访问自己参数列表之外或全局命名空间里的参数。
+        虽然lambda函数看起来只能写一行，却不等同于C或C++的内联函数，后者的目的是调用小函数时不占用栈内存从而增加运行效率。
+    '''
+    """
+        lambda 函数的语法只包含一个语句，如下：
+        lambda [arg1 [,arg2,.....argn]]:expression
+    """
+    print("第九个函数：匿名函数")
+    sum = lambda a, b: a * b
+    print(sum(1, 2))
+
+    ##############################################################
+    '''
+    变量作用域
+        Python 中，程序的变量并不是在哪个位置都可以访问的，访问权限决定于这个变量是在哪里赋值的。
+        变量的作用域决定了在哪一部分程序可以访问哪个特定的变量名称。Python的作用域一共有4种，分别是：
+        L （Local） 局部作用域
+        E （Enclosing） 闭包函数外的函数中
+        G （Global） 全局作用域
+        B （Built-in） 内置作用域（内置函数所在模块的范围）
+        以 L –> E –> G –>B 的规则查找，即：在局部找不到，便会去局部外的局部找（例如闭包），
+            再找不到就会去全局找，再者去内置中找。
+
+        内置作用域是通过一个名为 builtin 的标准模块来实现的，但是这个变量名自身并没有放入内置作用域内，
+            所以必须导入这个文件才能够使用它。在Python3.0中，可以使用以下的代码来查看到底预定义了哪些变量:
+            >>> import builtins
+            >>> dir(builtins)
+
+        Python 中只有模块（module），类（class）以及函数（def、lambda）才会引入新的作用域，
+            其它的代码块（如 if/elif/else/、try/except、for/while等）是不会引入新的作用域的，
+            也就是说这些语句内定义的变量，外部也可以访问，如下代码：
+            >>> if True:
+            ...  msg = 'I am from Runoob'
+            ...
+            >>> msg
+            'I am from Runoob'
+            >>>
+    '''
+
+    #################################################
+    """
+    global 和 nonlocal关键字
+        当内部作用域想修改外部作用域的变量时，就要用到global和nonlocal关键字了。
+    """
+    print("第十个函数：global关键字")
+    num = 1
+    print(num)
+    def testglobalKeyWord(num1):
+        "在声明需要修改num变量之前的代码无法使用num参数"
+        #num = 3
+        #print(num)
+        global num
+        num = num1
+        print(num)
+        return num
+    print(testglobalKeyWord(2))
+
+    #如果要修改嵌套作用域（enclosing 作用域，外层非全局作用域）中的变量则需要 nonlocal 关键字了
+    print("第十一个函数：nonlocal关键字")
+    def testnonlocalKeyWord():
+        num = 1
+        print(num)
+        def inner():
+            nonlocal num
+            print(num)
+            num = 2
+            return
+        inner()
+        print(num)
+        return
+    testnonlocalKeyWord()
+    #查看函数说明
+    print(testglobalKeyWord.__doc__)
+
+    a = 1
+    def a():
+        a = a + 1
