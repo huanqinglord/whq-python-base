@@ -146,13 +146,3 @@ if __name__ == '__main__':
     print(list4)
     for l2, i1 in zip(list3, list4):
         print(l2, i1)
-
-    print("")
-
-    print("")
-
-    print("")
-
-    print("")
-
-    print("")
