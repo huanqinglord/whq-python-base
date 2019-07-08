@@ -50,3 +50,12 @@ if __name__=="__main__":
     print(dict1)
     print("{0[1]}, {0[b]}".format(dict1))
 
+    print("键盘录入input方法")
+    while 1:
+        print("请输入一个数字：")
+        i = input()
+        try:
+            print("发现你的输入：", float(i))
+        except:
+            print("你输入的不是一个数字！")
+            continue
